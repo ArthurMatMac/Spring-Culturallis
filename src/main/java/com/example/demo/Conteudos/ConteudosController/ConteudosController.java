@@ -2,16 +2,12 @@ package com.example.demo.Conteudos.ConteudosController;
 
 import com.example.demo.Conteudos.ConteudosModel.Conteudos;
 import com.example.demo.Conteudos.ConteudosRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/culturallis")
@@ -20,32 +16,30 @@ public class ConteudosController {
     private final ConteudosRepository conteudosRepository;
 
     @Autowired
-    public ConteudosController(ConteudosRepository conteudosRepository){
+    public ConteudosController(ConteudosRepository conteudosRepository) {
         this.conteudosRepository = conteudosRepository;
     }
 
-
     @GetMapping("/listarConteudos")
-    public List<Conteudos> getContents(){
+    public List<Conteudos> getContents() {
         return conteudosRepository.findAll();
     }
 
     @PostMapping("/inserirConteudos")
-    public ResponseEntity<String> insertContents(@RequestBody Conteudos conteudos){
+    public ResponseEntity<String> insertContents(@RequestBody Conteudos conteudos) {
         conteudos.setData_criacao(new Date());
         try {
             conteudosRepository.save(conteudos);
             return ResponseEntity.ok("Conteúdo Inserido");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
-
     @PostMapping("/excluirConteudos")
-    public ResponseEntity<String> deleteContents(@RequestParam Long id){
+    public ResponseEntity<String> deleteContents(@RequestParam Long id) {
         Optional<Conteudos> contentToDelete = conteudosRepository.findById(id);
-        if(contentToDelete.isPresent()){
+        if (contentToDelete.isPresent()) {
             conteudosRepository.deleteById(id);
             return ResponseEntity.ok("Conteúdo excluído!");
         }
@@ -53,9 +47,9 @@ public class ConteudosController {
     }
 
     @PutMapping("/alterarConteudos/{id}")
-    public ResponseEntity<String> alterarProduto(@PathVariable Long id, @RequestBody Conteudos conteudosAtt){
+    public ResponseEntity<String> alterarProduto(@PathVariable Long id, @RequestBody Conteudos conteudosAtt) {
         Optional<Conteudos> content = conteudosRepository.findById(id);
-        if(content.isPresent()){
+        if (content.isPresent()) {
             Conteudos cont = content.get();
             cont.setFk_tb_curso_id(conteudosAtt.getFk_tb_curso_id());
             cont.setNome(conteudosAtt.getNome());
