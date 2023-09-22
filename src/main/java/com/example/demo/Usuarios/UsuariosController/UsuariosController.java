@@ -21,12 +21,12 @@ public class UsuariosController {
     }
 
     @GetMapping("/listarUsuarios")
-    public List<Usuarios> getContents() {
+    public List<Usuarios> getUsuarios() {
         return usuariosRepository.findAll();
     }
 
-    @PostMapping("/inserir")
-    public ResponseEntity<String> insertContents(@RequestBody Usuarios usuarios) {
+    @PostMapping("/inserirUsuario")
+    public ResponseEntity<String> insertUsarios(@RequestBody Usuarios usuarios) {
         usuarios.setData_criacao(new Date());
         try {
             usuariosRepository.save(usuarios);
@@ -37,7 +37,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/excluirUsuarios")
-    public ResponseEntity<String> deleteContents(@RequestParam Long id) {
+    public ResponseEntity<String> deleteUsuarios(@RequestParam Long id) {
         Optional<Usuarios> contentToDelete = usuariosRepository.findById(id);
         if (contentToDelete.isPresent()) {
             usuariosRepository.deleteById(id);

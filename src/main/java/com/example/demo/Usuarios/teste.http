@@ -1,1 +1,15 @@
-GET http://localhost:1234/api/culturallis/listarUsuarios
+POST  http://localhost:1234/api/culturallis/inserirUsuario
+Content-Type: application/json
+
+{
+  "nome_usuario": "anna",
+  "nome_completo": "anna completo",
+  "bio": "amo o harry styles e culturallis",
+  "cpf": "2222222222",
+  "email": "ana.damasceno@nninteresa.org.br",
+  "fk_tb_tipos_sexos_id": 1,
+  "telefone": "9999999999",
+  "url_foto": "http:foto.jpg",
+  "data_nasc":"2023-09-19 07:45:12.258"
+}
+
